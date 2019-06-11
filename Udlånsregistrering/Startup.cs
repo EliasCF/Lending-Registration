@@ -35,8 +35,9 @@ namespace Udlånsregistrering
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseMySql(
+                    "server=localhost;userid=root;password=;database=lendregdb;",
+                    b => b.MigrationsAssembly("Udlånsregistrering")));
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
