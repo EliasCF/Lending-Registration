@@ -7,7 +7,7 @@ namespace Udlånsregistrering.Models
     public class ApplicationUser : IdentityUser
     {
         [Required]
-        public int CPR_Number { get; set; }
+        public string CPR_Number { get; set; }
 
         [Required]
         public string Adress { get; set; }

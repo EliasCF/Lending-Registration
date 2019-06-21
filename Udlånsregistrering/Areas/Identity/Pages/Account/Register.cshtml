@@ -1,6 +1,8 @@
 ﻿@page
+
 @model RegisterModel
 @{
+
     ViewData["Title"] = "Register";
 }
 
@@ -16,6 +18,23 @@
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Adress"></label>
+                <input asp-for="Input.Adress" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.CPR_Number"></label>
+                <input asp-for="Input.CPR_Number" class="form-control" />
+            </div>
+            <div class="form-group">
+                <select asp-for="Input.Class" id="class-select"></select>
+            </div>
+            <div class="form-group">
+                <select asp-for="Input.City" id="city-select"></select>
+            </div>
+            <div class="form-group">
+                <select asp-for="Input.Zip_Code" id="zip-code-select"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Password"></label>
@@ -34,4 +53,24 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $.get('/api/class', (result) => {
+            result.forEach((c) => {
+                $('#class-select').append(`<option value="${c.id}">${c.class_Name}</option>`)
+            });
+        });
+
+        $.get('/api/city', (result) => {
+            result.forEach((c) => {
+                $('#city-select').append(`<option value="${c.id}">${c.city_Name}</option>`)
+            });
+        });
+
+        $.get('/api/zip_code', (result) => {
+            result.forEach((c) => {
+                $('#zip-code-select').append(`<option value="${c.id}">${c.code}</option>`)
+            });
+        });
+    </script>
 }

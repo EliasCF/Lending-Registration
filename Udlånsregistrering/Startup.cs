@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Udlånsregistrering.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Udlånsregistrering.Models;
 
 namespace Udlånsregistrering
 {
@@ -39,8 +40,9 @@ namespace Udlånsregistrering
                     "server=localhost;userid=root;password=;database=lendregdb;",
                     b => b.MigrationsAssembly("Udlånsregistrering")));
 
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
