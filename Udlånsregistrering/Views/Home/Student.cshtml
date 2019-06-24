@@ -39,10 +39,10 @@
     <script src="~/js/home/student.js"></script>
     <script>
         $.get('/api/loanedComputer/' + '@Html.Raw(Model)', (result) => {
-            result.forEach((item) => {
+            result.forEach((item, i) => {
                 $('#table-rows').append(`
-                    <tr>
-                        <td><input type="checkbox" value="${item.id}" class="forDeletion"></td>
+                    <tr id="row-${i}">
+                        <td><input type="checkbox" value="${item.id}" name="${i}" class="forDeletion"></td>
                         <td>${item.computer.name}</td>
                         <td>${item.loaned_Date.replace('T', ' ')}</td>
                         <td>${item.loanExpiration_Date.replace('T', ' ')}</td>

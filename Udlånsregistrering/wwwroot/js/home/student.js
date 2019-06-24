@@ -31,7 +31,7 @@
                         url: `/api/loanedComputer/${computer.value}`,
                         type: 'DELETE',
                         success: function () {
-
+                            $('.row-' + computer.name);
                         }
                     });
                 });
