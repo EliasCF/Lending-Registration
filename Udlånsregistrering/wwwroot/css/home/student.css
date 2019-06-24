@@ -1,0 +1,50 @@
+﻿.menu-pagination {
+    position: fixed;
+
+    list-style: none;
+    
+    font-size: xx-large;
+    font-weight: 800;
+}
+
+.menu-pagination a {
+    color: #cacaca;
+    text-decoration: none;
+}
+
+.inner {
+    position: relative;
+    margin: 0 auto;
+}
+
+.active-section {
+    text-decoration: line-through;
+}
+
+.vertical-center {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(47%);
+}
+
+.check-out-button {
+    background-color: #f9c47e;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 58px;
+    text-decoration: none;
+    color: #505050;
+}
+
+.check-out-button:hover {
+	background-color: #ffb452;
+}
+
+.check-out-button:active {
+	position: relative;
+	top: 1px;
+}

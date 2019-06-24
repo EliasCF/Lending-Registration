@@ -1,0 +1,57 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Student";
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
+
+<section class="panel" data-section-name="my-loans">
+    <ul class="menu-pagination">
+        <li class="active-section"><a href="#my-loans">Mine lån</a></li>
+        <li><a href="#loans">Lån</a></li>
+    </ul>
+    <div class="inner container">
+        <div class="vertical-center">
+            <h1 class="text-left">Mine Lån</h1>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Lånedag</th>
+                        <th>Udlåbsdag</th>
+                    </tr>
+                </thead>
+                <tbody id="table-rows"></tbody>
+            </table>
+            <button class="check-out-button">Check ud</button>
+        </div>
+    </div>
+</section>
+<section class="panel" data-section-name="loans">
+    <div class="inner text-center">
+        <h1>ok2</h1>
+    </div>
+</section>
+
+@section  Scripts {
+    <script src="~/lib/scrollify/jquery.scrollify.js"></script>
+    <script src="~/js/home/student.js"></script>
+    <script>
+        $.get('/api/loanedComputer/' + '@Html.Raw(Model)', (result) => {
+            result.forEach((item) => {
+                $('#table-rows').append(`
+                    <tr>
+                        <td><input type="checkbox" value="${item.id}" class="forDeletion"></td>
+                        <td>${item.computer.name}</td>
+                        <td>${item.loaned_Date.replace('T', ' ')}</td>
+                        <td>${item.loanExpiration_Date.replace('T', ' ')}</td>
+                    </tr>`);
+            });
+        });
+    </script>
+}
+
+@section  Styles {
+    <link rel="stylesheet"  href="~/css/home/student.css"/>
+}

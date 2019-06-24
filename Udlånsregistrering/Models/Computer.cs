@@ -12,6 +12,10 @@ namespace Udlånsregistrering.Models
         [MaxLength(100)]
         public string Computer_Id { get; set; }
 
+        [Required]
+        [MaxLength(50)]
+        public string Name { get; set; }
+
         [ForeignKey("Mouse")]
         public int MouseId { get; set; }
         public Mouse Mouse { get; set; }

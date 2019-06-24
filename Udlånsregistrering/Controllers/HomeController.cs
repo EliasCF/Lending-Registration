@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Udlånsregistrering.Models;
 
@@ -10,22 +12,35 @@ namespace Udlånsregistrering.Controllers
 {
     public class HomeController : Controller
     {
+        private UserManager<ApplicationUser> manager { get; }
+
+        public HomeController(UserManager<ApplicationUser> userManager)
+        {
+            manager = userManager;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        [Authorize]
+        public IActionResult Student()
         {
-            ViewData["Message"] = "Your application description page.";
+            string userId = manager.GetUserId(HttpContext.User);
 
+            return View("Student", userId);
+        }
+
+        [Authorize]
+        public IActionResult Teacher()
+        {
             return View();
         }
 
-        public IActionResult Contact()
+        [Authorize]
+        public IActionResult Admin()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
