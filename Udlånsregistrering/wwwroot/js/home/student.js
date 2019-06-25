@@ -9,8 +9,6 @@
                 //Give 'active-section' class to the new chosen section
                 //and remove it from the old section
                 for (var i = 0; i < $('.menu-pagination li').length; i++) {
-                    console.log($('.menu-pagination li')[i]);
-
                     const sectionHref = $('.menu-pagination li a')[i];
                     const listElement = $('.menu-pagination li')[i];
 
@@ -40,6 +38,36 @@
                 });
             });
 
+            $('.reserve-button').on('click', function () {
+                let toBeAdded = $.makeArray($('.forAdding')).filter(fd => fd.checked === true)[0];
+
+                if (toBeAdded.length !== 0) {
+                    $.post('/api/loanedComputer', {
+                        computerId: toBeAdded.value,
+                        loaned_Date: $('#from-date').val(),
+                        loanExpiration_Date: $('#to-date').val(),
+                        userId: $('#userId')[0].value
+                    }, function () {
+                            $('#unreserved-table-rows').empty();
+
+                            //Reload table content
+                            $.get('/api/computer/unreserved', (result) => {
+                                result.forEach((item, i) => {
+                                    $('#unreserved-table-rows').append(`
+                                    <tr id="row-${i}">
+                                        <td><input type="checkbox" value="${item.id}" name="${i}" id="check-${i}" class="forAdding" onClick="validateNumber(this)"></td>
+                                        <td>${item.name}</td>
+                                        <td>${item.model.brand.brand_Name}</td>
+                                        <td>${item.mouse.name}</td>
+                                        <td>${item.mouse.type}</td>
+                                        <td>${item.mouse.brand.brand_Name}</td>
+                                    </tr>`);
+                                });
+                            });
+                    });
+                }
+            });
+
             //Make sure scrollify doesn't scroll when using overflow table
             $('#loans-table').hover(function () {
                     $.scrollify.disable();
@@ -49,3 +77,19 @@
         }
     });
 });
+
+//Make sure no more than one checkbox can be check at a time
+function validateNumber(input) {
+    if (input.checked) {
+        let checkedBoxes = 0;
+        $.makeArray($('.forAdding')).forEach(function (checkbox) {
+            if (checkbox.checked) {
+                checkedBoxes++;
+            }
+        });
+
+        if (checkedBoxes > 1) {
+            input.checked = false;
+        }
+    }
+}

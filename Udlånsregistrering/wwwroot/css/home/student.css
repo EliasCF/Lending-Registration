@@ -26,7 +26,7 @@
     width: 100%;
     position: absolute;
     top: 47%;
-    transform: translateY(10%);
+    transform: translateY(25%);
 }
 
 .check-out-button {
@@ -45,6 +45,26 @@
 }
 
 .check-out-button:active {
+	position: relative;
+	top: 1px;
+}
+
+.reserve-button {
+    background-color: #7ef9a3;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 58px;
+    text-decoration: none;
+    color: #505050;
+}
+
+.reserve-button:hover {
+	background-color: #2dff6c;
+}
+
+.reserve-button:active {
 	position: relative;
 	top: 1px;
 }

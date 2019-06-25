@@ -22,13 +22,33 @@ namespace Udlånsregistrering.Controllers.Api
             database = context;
         }
 
+        /// <summary>
+        /// Get all Loaned_Computers
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IQueryable<Loaned_Computer> GetLoaned_Computers()
         {
             return database.Loaned_Computers.AsQueryable();
         }
 
-        [HttpGet("{userId}")]
+        /// <summary>
+        /// Get specific Loaned_Computer by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public Loaned_Computer GetLoaned_Computer(int id)
+        {
+            return database.Loaned_Computers.Single(lc => lc.Id == id);
+        }
+
+        /// <summary>
+        /// Get a users Loaned_Computers
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet("user/{userId}")]
         public IQueryable<Loaned_Computer> GetUsersLoaned_Computers(string userId)
         {
             return database.Loaned_Computers
@@ -36,10 +56,35 @@ namespace Udlånsregistrering.Controllers.Api
                 .Include(l => l.Computer);
         }
 
+        /// <summary>
+        /// Loan Computer
+        /// </summary>
+        /// <param name="loan"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> ReserveComputer([FromForm]NewLoan loan)
+        {
+            await database.Loaned_Computers.AddAsync(new Loaned_Computer
+            {
+                ComputerId = loan.ComputerId,
+                ApplicationUserId = loan.UserId,
+                Loaned_Date = loan.Loaned_Date,
+                LoanExpiration_Date = loan.LoanExpiration_Date
+            });
+
+            await database.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetLoaned_Computer), new { id = loan.ComputerId }, loan);
+        }
+
+        /// <summary>
+        /// Remove Loaned_Computer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> CheckOutComputer (int id)
         {
-            Loaned_Computer loaned = new Loaned_Computer { Id = id };
+            Loaned_Computer loaned = database.Loaned_Computers.Single(lc => lc.Id == id);
 
             if (loaned == null)
             {
