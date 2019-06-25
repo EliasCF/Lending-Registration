@@ -40,6 +40,7 @@
                 });
             });
 
+            //Make sure scrollify doesn't scroll when using overflow table
             $('#loans-table').hover(function () {
                     $.scrollify.disable();
             }, function () {
