@@ -48,3 +48,20 @@
 	position: relative;
 	top: 1px;
 }
+
+tr {
+    width: 100%;
+    display: inline-table;
+    table-layout: fixed;
+}
+
+table {
+    height: 300px;
+    overflow: scroll;
+}
+
+tbody {
+    overflow-y: scroll;
+    height: 250px;
+    position: absolute;
+}

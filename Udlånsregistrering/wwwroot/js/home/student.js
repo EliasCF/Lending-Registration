@@ -1,7 +1,9 @@
 ﻿$(function () {
     $.scrollify({
         section: '.panel',
-        scrollBar: false,
+        scrollbars: true,
+        overflowScroll: true,
+        touchScroll: false,
         afterRender: function () {
             $(".menu-pagination a").on("click", function () {
                 //Give 'active-section' class to the new chosen section
@@ -37,6 +39,12 @@
                     });
                 });
             });
+
+            $('#loans-table').hover(function () {
+                    $.scrollify.disable();
+            }, function () {
+                    $.scrollify.enable();
+                    });
         }
     });
 });
