@@ -67,33 +67,6 @@
 @section  Scripts {
     <script src="~/lib/scrollify/jquery.scrollify.js"></script>
     <script src="~/js/home/student.js"></script>
-    <script>
-        $.get('/api/loanedComputer/user/' + '@Html.Raw(Model)', (result) => {
-            result.forEach((item, i) => {
-                $('#loan-table-rows').append(`
-                    <tr id="row-${i}">
-                        <td><input type="checkbox" value="${item.id}" name="${i}" class="forDeletion"></td>
-                        <td>${item.computer.name}</td>
-                        <td>${item.loaned_Date.replace('T', ' ')}</td>
-                        <td>${item.loanExpiration_Date.replace('T', ' ')}</td>
-                    </tr>`);
-            });
-        });
-
-        $.get('/api/computer/unreserved', (result) => {
-            result.forEach((item, i) => {
-                $('#unreserved-table-rows').append(`
-                    <tr id="row-${i}">
-                        <td><input type="checkbox" value="${item.id}" name="${i}" id="check-${i}" class="forAdding" onClick="validateNumber(this)"></td>
-                        <td>${item.name}</td>
-                        <td>${item.model.brand.brand_Name}</td>
-                        <td>${item.mouse.name}</td>
-                        <td>${item.mouse.type}</td>
-                        <td>${item.mouse.brand.brand_Name}</td>
-                    </tr>`);
-            });
-        });
-    </script>
 }
 
 @section  Styles {
