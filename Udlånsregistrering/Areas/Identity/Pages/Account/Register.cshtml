@@ -28,13 +28,20 @@
                 <input asp-for="Input.CPR_Number" class="form-control" />
             </div>
             <div class="form-group">
-                <select asp-for="Input.Class" id="class-select"></select>
+                <label asp-for="Input.PhoneNumber"></label>
+                <input asp-for="Input.PhoneNumber" class="form-control" />
             </div>
             <div class="form-group">
-                <select asp-for="Input.City" id="city-select"></select>
+                <label asp-for="Input.Class"></label>
+                <select asp-for="Input.Class" id="class-select" class="form-control"></select>
             </div>
             <div class="form-group">
-                <select asp-for="Input.Zip_Code" id="zip-code-select"></select>
+                <label asp-for="Input.City"></label>
+                <select asp-for="Input.City" id="city-select" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Zip_Code"></label>
+                <select asp-for="Input.Zip_Code" id="zip-code-select" class="form-control"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Password"></label>

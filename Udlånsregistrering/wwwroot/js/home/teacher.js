@@ -29,59 +29,60 @@
             $('.check-out-button').on('click', function () {
                 let toBeDeleted = $.makeArray($('.forDeletion')).filter(fd => fd.checked === true);
 
-                toBeDeleted.forEach(function (computer) {
-                    $.ajax({
-                        url: `/api/loanedComputer/${computer.value}`,
-                        type: 'DELETE',
-                        success: function () {
-                            //Remove deleted computer from table
-                            $('#row-' + computer.name).remove();
-                            LoadAllUnreaservedComputers();
-                        }
+                //Check computer(s) out asynchronous
+                const start = async function () {
+                    await asyncForEach(toBeDeleted, async function (computer) {
+                        await $.ajax({
+                            url: `/api/loanedComputer/${computer.value}`,
+                            type: 'DELETE',
+                            success: function () {
+                                //Remove deleted computer from table
+                                $('#row-' + computer.name).remove();
+                            }
+                        });
                     });
+                };
+
+                start().then(function () {
+                    LoadAllUnreaservedComputers();
                 });
             });
 
             $('.reserve-button').on('click', function () {
-                let toBeAdded = $.makeArray($('.forAdding')).filter(fd => fd.checked === true)[0];
+                let toBeAdded = $.makeArray($('.forAdding')).filter(fd => fd.checked === true);
 
-                if (toBeAdded.length !== 0) {
-                    $.post('/api/loanedComputer', {
-                        computerId: toBeAdded.value,
-                        loaned_Date: $('#from-date').val(),
-                        loanExpiration_Date: $('#to-date').val(),
-                        userId: $('#userId')[0].value
-                    }, function () {
-                            LoadUsersReservedComputers($('#userId')[0].value);
-
-                            LoadAllUnreaservedComputers();
+                //Reserve computer(s) asynchronous
+                const start = async function () {
+                    await asyncForEach(toBeAdded, async function (item) {
+                        await $.post('/api/loanedComputer', {
+                            computerId: item.value,
+                            loaned_Date: $('#from-date').val(),
+                            loanExpiration_Date: $('#to-date').val(),
+                            userId: $('#userId')[0].value
+                        }
+                        );
                     });
-                }
+                };
+
+                start().then(function () {
+                    LoadUsersReservedComputers($('#userId')[0].value);
+                    LoadAllUnreaservedComputers();
+                });
             });
 
             //Make sure scrollify doesn't scroll when using overflow table
             $('#loans-table').hover(function () {
-                    $.scrollify.disable();
+                $.scrollify.disable();
             }, function () {
-                    $.scrollify.enable();
-                    });
+                $.scrollify.enable();
+            });
         }
     });
 });
 
-//Make sure no more than one checkbox can be check at a time
-function validateNumber(input) {
-    if (input.checked) {
-        let checkedBoxes = 0;
-        $.makeArray($('.forAdding')).forEach(function (checkbox) {
-            if (checkbox.checked) {
-                checkedBoxes++;
-            }
-        });
-
-        if (checkedBoxes > 1) {
-            input.checked = false;
-        }
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
     }
 }
 
@@ -110,7 +111,7 @@ function LoadAllUnreaservedComputers() {
         result.forEach((item, i) => {
             $('#unreserved-table-rows').append(`
                     <tr id="row-${i}">
-                        <td><input type="checkbox" value="${item.id}" name="${i}" id="check-${i}" class="forAdding" onClick="validateNumber(this)"></td>
+                        <td><input type="checkbox" value="${item.id}" name="${i}" id="check-${i}" class="forAdding"></td>
                         <td>${item.name}</td>
                         <td>${item.model.brand.brand_Name}</td>
                         <td>${item.mouse.name}</td>

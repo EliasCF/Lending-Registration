@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -27,9 +23,7 @@ namespace Udlånsregistrering.Controllers
         [Authorize(Roles = "Student")]
         public IActionResult Student()
         {
-            string userId = manager.GetUserId(HttpContext.User);
-
-            return View("Student", userId);
+            return View();
         }
 
         [Authorize(Roles = "Teacher")]

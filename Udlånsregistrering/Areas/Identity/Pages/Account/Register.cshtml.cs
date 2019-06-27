@@ -61,14 +61,17 @@ namespace Udlånsregistrering.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "CPR Number")]
             public string CPR_Number { get; set; }
-            
+
             [Required]
+            [Display(Name = "Klasse")]
             public int Class { get; set; }
 
             [Required]
+            [Display(Name = "By")]
             public int City { get; set; }
 
             [Required]
+            [Display(Name = "Postkode")]
             public int Zip_Code { get; set; }
 
             [Required]

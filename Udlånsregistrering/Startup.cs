@@ -82,7 +82,6 @@ namespace Udlånsregistrering
         private async Task CreateRoles (IServiceProvider serviceProvider)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             string[] roleNames = { "Admin", "Student", "Teacher" };
 
             IdentityResult roleResult;
