@@ -24,7 +24,7 @@ namespace Udlånsregistrering.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Student")]
         public IActionResult Student()
         {
             string userId = manager.GetUserId(HttpContext.User);
@@ -32,13 +32,13 @@ namespace Udlånsregistrering.Controllers
             return View("Student", userId);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Teacher")]
         public IActionResult Teacher()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Admin()
         {
             return View();
