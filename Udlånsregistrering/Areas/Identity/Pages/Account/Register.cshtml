@@ -7,55 +7,52 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Adress"></label>
-                <input asp-for="Input.Adress" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.CPR_Number"></label>
-                <input asp-for="Input.CPR_Number" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Class"></label>
-                <select asp-for="Input.Class" id="class-select" class="form-control"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.City"></label>
-                <select asp-for="Input.City" id="city-select" class="form-control"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Zip_Code"></label>
-                <select asp-for="Input.Zip_Code" id="zip-code-select" class="form-control"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-default">Register</button>
-        </form>
-    </div>
+<div class="container-fluid text-center">
+    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <h4>Create a new account.</h4>
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Input.Email"></label>
+            <input asp-for="Input.Email" class="form-control" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Adress"></label>
+            <input asp-for="Input.Adress" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.CPR_Number"></label>
+            <input asp-for="Input.CPR_Number" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.PhoneNumber"></label>
+            <input asp-for="Input.PhoneNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Class"></label>
+            <select asp-for="Input.Class" id="class-select" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.City"></label>
+            <select asp-for="Input.City" id="city-select" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Zip_Code"></label>
+            <select asp-for="Input.Zip_Code" id="zip-code-select" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.Password"></label>
+            <input asp-for="Input.Password" class="form-control" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.ConfirmPassword"></label>
+            <input asp-for="Input.ConfirmPassword" class="form-control" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+        <button type="submit" class="register-button">Register</button>
+    </form>
 </div>
 
 @section Scripts {
@@ -80,4 +77,26 @@
             });
         });
     </script>
+
+    <style>
+        .register-button {
+            background-color: #7ef9a3;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 20px;
+            padding: 10px 58px;
+            text-decoration: none;
+            color: #505050;
+        }
+
+        .register-button:hover {
+            background-color: #2dff6c;
+        }
+
+        .register-button:active {
+            position: relative;
+            top: 1px;
+        }
+    </style>
 }

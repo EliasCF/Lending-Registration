@@ -17,7 +17,7 @@ namespace Udlånsregistrering.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return Redirect("Identity/Account/Login");
         }
 
         [Authorize(Roles = "Student")]
